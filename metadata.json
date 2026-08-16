@@ -1,0 +1,10 @@
+{
+  "name": "Remix Mobile Banking Directory",
+  "description": "A highly secure multi-role web directory for consolidating mobile banking options under unified merchant IDs with security audit logging.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

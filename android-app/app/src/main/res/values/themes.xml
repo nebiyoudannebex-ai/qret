@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="QretTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/luxury_bg</item>
+        <item name="colorAccent">@color/neon_emerald</item>
+        <item name="android:statusBarColor">@color/luxury_bg</item>
+        <item name="android:navigationBarColor">@color/luxury_bg</item>
+    </style>
+</resources>

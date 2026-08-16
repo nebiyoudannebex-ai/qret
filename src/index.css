@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Warm Obsidian & Emerald palette */
+  --color-luxury-bg: #0D0E11;      /* Warm charcoal canvas */
+  --color-luxury-card: #16181D;    /* Obsidian gray surface */
+  --color-neon-emerald: #10B981;   /* Verified / success emerald */
+  --color-champagne: #E2B968;      /* Champagne gold accent / CTA */
+  --color-champagne-dark: #C9A24F;
+  --color-terracotta: #E05A47;     /* Alert / suspicious */
+  --color-parchment: #F3F4F6;      /* Primary text */
+
+  /* Warm-tinted neutrals (no cold blue undertones) */
+  --color-gray-100: #F3F4F6;
+  --color-gray-200: #E7E5E0;
+  --color-gray-300: #D1CEC6;
+  --color-gray-400: #A8A49A;
+  --color-gray-500: #7E7A70;
+  --color-gray-600: #5E5A52;
+  --color-gray-700: #403C36;
+  --color-gray-800: #2B2823;
+  --color-gray-900: #1D1B18;
+  --color-gray-950: #0C0C0E;
+
+  /* Terracotta alert scale */
+  --color-red-300: #F2A093;
+  --color-red-400: #E05A47;
+  --color-red-500: #C74B3A;
+  --color-red-600: #A83C2E;
+  --color-red-900: #5E1E15;
+  --color-red-950: #2B0E09;
+
+  /* Champagne gold scale (maps amber utilities to champagne) */
+  --color-amber-200: #F3DEB3;
+  --color-amber-300: #EDD28F;
+  --color-amber-400: #E2B968;
+  --color-amber-500: #D4A84E;
+  --color-amber-600: #B88C38;
+
+  --color-emerald-300: #6EE7B7;
+  --color-emerald-400: #34D399;
+  --color-emerald-500: #10B981;
+  --color-emerald-600: #059669;
+  --color-emerald-900: #064E3B;
+  --color-emerald-950: #022c22;
+}
+
+html {
+  scrollbar-color: #3A362E #0D0E11;
+}
+
+body {
+  background-color: var(--color-luxury-bg);
+  color: var(--color-parchment);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh; /* Dynamic Viewport Height — no mobile address-bar jump */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Stops horizontal mobile jitter */
+}
+
+::selection {
+  background: rgba(226, 185, 104, 0.3);
+  color: #F3F4F6;
+}
+
+/* Subtle 3% SVG noise grain across the whole canvas */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Warm micro-glow for gold accents */
+.neon-glow {
+  box-shadow: 0 0 20px rgba(226, 185, 104, 0.18), 0 0 45px rgba(16, 185, 129, 0.07);
+}
+
+.neon-glow-strong {
+  box-shadow: 0 0 25px rgba(226, 185, 104, 0.35);
+}
+
+.pulse-dot {
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+}
+
+/* Hairline warm-gold card border */
+.card-hairline {
+  border: 1px solid rgba(226, 185, 104, 0.12);
+}
+
+.card-hairline-strong {
+  border: 1px solid rgba(226, 185, 104, 0.22);
+}
+
+/* Warm amber/emerald hover lift for dish & scan cards */
+.warm-lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.warm-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(226, 185, 104, 0.15), 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.warm-lift-emerald:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.16), 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Editorial gold subtext for dual-language lines */
+.gold-subtext {
+  color: rgba(226, 185, 104, 0.62);
+}
+
+/* Glassmorphic hair-thin surfaces (spec: 1px rgba(255,255,255,0.08) + blur 12px) */
+.glass-panel {
+  background: rgba(22, 24, 29, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hairline-white {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tactile press physics — everything clickable compresses on press */
+button:active,
+[role="button"]:active {
+  transform: scale(0.97);
+}
+
+.pressable:active {
+  transform: scale(0.97);
+}
+
+/* Skeleton shimmer loaders (zero CLS: match incoming card dims with explicit h/w) */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #1D1B18;
+  border-radius: 14px;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(226, 185, 104, 0.09), transparent);
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Elegant thin scrollbars */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0E11;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3A362E;
+  border-radius: 8px;
+  border: 2px solid #0D0E11;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4C463A;
+}
+
+/* ============================================================
+   Responsive Architecture — Fluid Layouts & Container Queries
+   (Tailwind utilities can still override these component styles)
+   ============================================================ */
+@layer components {
+  /* Fluid auto-fitting grid — no fixed media queries required */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+    padding: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  /* Container Query Component — card adapts to its container, not screen width */
+  .card-wrapper {
+    container-type: inline-size;
+    container-name: menu-card;
+  }
+
+  .dish-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-luxury-card);
+    border: 1px solid rgba(226, 185, 104, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .dish-card-media {
+    position: relative;
+    height: 9rem;
+    width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .dish-card-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dish-card-footer {
+    flex: 0 1 auto;
+  }
+
+  /* Container Query Breakpoint — flips card horizontal on wider containers */
+  @container menu-card (min-width: 400px) {
+    .dish-card {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    .dish-card-media {
+      width: 132px;
+      height: auto;
+      min-height: 132px;
+      align-self: stretch;
+    }
+
+    .dish-card-body {
+      flex: 1 1 0;
+      padding: 1rem !important;
+    }
+
+    .dish-card-footer {
+      flex-basis: 100%;
+    }
+  }
+}
+
+/* Mobile-Friendly Touch Target Sizing — ergonomic 48px targets on iOS & Android */
+@layer base {
+  button,
+  [role="button"],
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  @media (max-width: 640px) {
+    button:not([class*="h-"]),
+    [role="button"]:not([class*="h-"]),
+    input:not([class*="h-"]),
+    select:not([class*="h-"]),
+    textarea:not([class*="h-"]),
+    a:not([class*="h-"]) {
+      min-height: 48px;
+    }
+  }
+}
+
+/* Ensure fixed bottom bars don't overlap scrollable content */
+.main-content-safe {
+  padding-bottom: calc(140px + env(safe-area-inset-bottom));
+}

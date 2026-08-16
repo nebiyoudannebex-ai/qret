@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qret</string>
+    <string name="connecting">Connecting to qret.et…</string>
+    <string name="retry">Retry</string>
+    <string name="connection_failed">Could not reach the Qret server.\nMake sure the PC running the platform is on and you are on the same Wi-Fi.</string>
+    <string name="server_address">Server address</string>
+    <string name="use_address">Use this address</string>
+</resources>
